@@ -72,7 +72,7 @@ for platform in supported_platforms()
 end
 
 # In the end, dump an informative message telling the user how to download/install these
-info("Hash/filename pariings:")
+info("Hash/filename pairings:")
 for target in keys(products)
     filename, hash = products[target]
     println("    :$(platform_key(target)) => (\"\$bin_prefix/$(filename)\", \"$(hash)\"),")
