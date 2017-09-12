@@ -1,0 +1,36 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+sudo: required
+services:
+  - docker
+
+env:
+  DOCKER_IMAGE: staticfloat/julia_workerbase:crossbuild-x64
+
+before_script:
+  - docker pull $DOCKER_IMAGE
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_rmath_tarballs.jl
+
+deploy:
+  provider: releases
+  api_key:
+    # Note; this api_key is only valid for staticfloat/RmathBuilder; you need
+    # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+    #secure: 
+  file_glob: true
+  file: products/*.tar.gz
+  skip_cleanup: true
+  on:
+    repo: staticfloat/NettleBuilder
+    tags: true
