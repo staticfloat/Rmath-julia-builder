@@ -10,27 +10,24 @@ git:
 sudo: required
 services:
   - docker
-
 env:
   DOCKER_IMAGE: staticfloat/julia_workerbase:crossbuild-x64
-
 before_script:
   - docker pull $DOCKER_IMAGE
   - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
   - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
-
 script:
   - julia build_rmath_tarballs.jl
 
 deploy:
   provider: releases
   api_key:
-    # Note; this api_key is only valid for staticfloat/RmathBuilder; you need
+    # Note; this api_key is only valid for staticfloat/Rmath-julia-builder; you need
     # to make your own: https://docs.travis-ci.com/user/deployment/releases/
-    #secure: 
+    secure: WoCCNygmIrFyva6DcwgpkF/MV+IE+q1RNo6+2B/By+ljNJPKXgCuxkF9GiNfsM4sgwkhb3ZXWRlAa+xjKeau1fgFKmCsfM+hM/mK6gEcmLEqkYydAv2XtfV3JdiS/O5ToyK9rx+ZxSbI9/sjDX2bVNHrj/FzwqWPJEGR9eFAoAqguBZX4QMZRDIgev0Vapj9G1aUpDXIyXtcMUd6d4eVJS1wowVBy1T8JCROipfoWUj4pw8POKXlSVDj5dZ0jL8rna/xnUO3YfRTILrD9gGcfHKggnl/MPot2GELSH4RduK+QimnqyzQNwHIuHUCXs2KOOt3JG+vGOHdlOlT0uXAC3bpNU3iN7xkQz4RZuEPVl9VjcjXCHMd6vWRAjkG34mOMmtqCCaxMnamCrHoCq376AbvXSc9slf93n+awCyABmHt3YalLE2qG+qqq14vlG6VzUJtN2WwuHn2kaegCafF4zdpgY1RIC6eYZnuariNy2uOzZz/PI3WBnqQ2uNYT/tgfhdhoh2amq0xf4lULQIIN2kQF2KsnTB5tlIRWWjsZk8zcpQDfJ4i3PgMCgc3h6nEQGw+QteGeuZwF7I485+Lhfw2TgR4GtI43YEoIgBenR1omB/3HW7hkgTh4oS1Pr3yiKWUGI5U5rfD1fRj0ePZAb7fZPVzDZhT5LvduCt4mO4=
   file_glob: true
   file: products/*.tar.gz
   skip_cleanup: true
   on:
-    repo: staticfloat/NettleBuilder
+    repo: staticfloat/Rmath-julia-builder
     tags: true
