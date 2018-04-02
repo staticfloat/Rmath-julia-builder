@@ -1,3 +1,7 @@
+# DEPRECATED
+
+See [RmathBuilder](https://github.com/staticfloat/RmathBuilder) for an updated, better version that follows standard naming practices.  This repository left merely as a signpost showing how far we've come.
+
 # Rmath-julia-builder
 
 [![Build Status](https://travis-ci.org/staticfloat/Rmath-julia-builder.svg?branch=master)](https://travis-ci.org/staticfloat/Rmath-julia-builder)
